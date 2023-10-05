@@ -6,7 +6,7 @@ const string DEFAULT_USER = "default";
 
 service /airways on new http:Listener(9092) {
 
-    resource function get frequentMiles(http:Headers headers) returns string|http:BadRequest|error {
+    resource function get frequentMiles/[float actualMiles](http:Headers headers) returns anydata|http:BadRequest|error {
         string|error jwtAssertion = headers.getHeader("x-jwt-assertion");
         io:println(jwtAssertion);
         if (jwtAssertion is error) {
@@ -19,11 +19,12 @@ service /airways on new http:Listener(9092) {
             return badRequest;
         }
         [jwt:Header, jwt:Payload] [_, payload] = check jwt:decode(jwtAssertion);
-        string username = payload.sub is string ? <string>payload.sub : DEFAULT_USER;
+        anydata username = payload.get("sub");
+
         io:print(username);
 
-        return jwtAssertion;
-        // return username;
+        // return jwtAssertion;
+        return username;
     }
 }
 
