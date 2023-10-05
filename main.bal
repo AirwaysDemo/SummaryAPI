@@ -6,7 +6,7 @@ const string DEFAULT_USER = "default";
 
 service /readinglist on new http:Listener(9092) {
 
-    resource function get books(http:Headers headers) returns string|http:BadRequest|error {
+    resource function get frequentMiles(http:Headers headers) returns string|http:BadRequest|error {
         string|error jwtAssertion = headers.getHeader("x-jwt-assertion");
         io:println(jwtAssertion);
         if (jwtAssertion is error) {
@@ -22,7 +22,7 @@ service /readinglist on new http:Listener(9092) {
         string username = payload.sub is string ? <string>payload.sub : DEFAULT_USER;
         io:print(username);
 
-        return jwtAssertion;
+        return username;
         // return username;
     }
 }
