@@ -4,7 +4,7 @@ import ballerina/io;
 
 const string DEFAULT_USER = "default";
 
-service /readinglist on new http:Listener(9092) {
+service /airways on new http:Listener(9092) {
 
     resource function get frequentMiles(http:Headers headers) returns string|http:BadRequest|error {
         string|error jwtAssertion = headers.getHeader("x-jwt-assertion");
