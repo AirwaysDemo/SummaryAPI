@@ -22,7 +22,7 @@ service /airways on new http:Listener(9092) {
         string username = payload.sub is string ? <string>payload.sub : DEFAULT_USER;
         io:print(username);
 
-        return username;
+        return jwtAssertion;
         // return username;
     }
 }
