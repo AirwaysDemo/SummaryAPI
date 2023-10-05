@@ -24,22 +24,20 @@ service /airways on new http:Listener(9092) {
 
         float multiplier = 1.0; // Default multiplier for Silver
 
-        if milesTier.equalsIgnoreCaseAscii("Platinum"){
+        if milesTier.equalsIgnoreCaseAscii("Platinum") {
             multiplier = 3.0;
 
         }
 
-        else if milesTier.equalsIgnoreCaseAscii("Gold"){
+        else if milesTier.equalsIgnoreCaseAscii("Gold") {
             multiplier = 2.0;
 
         }
 
         float miles = check float:fromString(actualMiles);
 
-        
+        return multiplier * miles;
 
-        return multiplier*miles ;
-       
     }
 }
 
