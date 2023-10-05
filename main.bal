@@ -6,7 +6,7 @@ const string DEFAULT_USER = "default";
 
 service /airways on new http:Listener(9092) {
 
-    resource function get frequentMiles/[float actualMiles](http:Headers headers) returns string|http:BadRequest|error {
+    resource function get frequentMiles/[string actualMiles](http:Headers headers) returns string|http:BadRequest|error {
         string|error jwtAssertion = headers.getHeader("x-jwt-assertion");
         io:println(jwtAssertion);
         if (jwtAssertion is error) {
